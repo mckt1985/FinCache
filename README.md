@@ -41,6 +41,13 @@ public static IServiceCollection AddFinCache(this IServiceCollection services, F
 ## Usage
 To use FinCache in your application, once the service has been registered you can inject it in to your application
 
+First add a reference to the IFincache InMemoory interface
+
+```csharp
+using FinCache.InMemory.Interface;
+```
+Then inject as follows
+
 ```csharp
 private readonly IFinCache cache;
 
