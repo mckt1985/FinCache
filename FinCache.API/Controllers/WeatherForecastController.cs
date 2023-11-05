@@ -38,13 +38,28 @@ namespace FinCache.API.Controllers
                 var response =
                     await this.amqpProcessingService.RequestAsync<GetWeatherForecastRequest, GetWeatherForecastResponse>(request);
 
+                if(response.Weather is null)
+                {
+                    var result = new ObjectResult(new { error = "City not found in the list of the available cities." })
+                    {
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    };
+
+                    return result;
+                }
+
                 this.cache.AddCache(city, response.Weather);
 
                 return Ok(response);
             }
             catch (Exception exception)
             {
-                return BadRequest(exception);   
+                var result = new ObjectResult(new { error = exception.Message })
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError
+                };
+
+                return result;
             }
         }
 
