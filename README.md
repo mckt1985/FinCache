@@ -100,7 +100,7 @@ http://localhost:5000/swagger/index.html
 Or you can use Postman to test the weather API
 
 ```bash
-https://localhost:5000/api/weather/forecast?city={city}
+http://localhost:5000/api/weather/forecast?city={city}
 ```
 The list of available Cities to test are 
 
