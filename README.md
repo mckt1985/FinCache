@@ -81,9 +81,9 @@ It uses the default WeatherForecast example provided in the ASP.Net Core Web API
 
 There is a backend worker service that is listenting to the queue and simulates calling a PostgreSQL/SQL Server database to retrieve the weather forecast by city name.
 
-The cache uses the city name as the key so the first time the weather is requested it will go to the backend service to get the data, otherise the weather will be returned from the cache.
+The cache uses the city name as the key so the first time the weather is requested it will go to the backend service to get the data, otherwise the weather will be returned from the cache.
 
-![image](https://github.com/mckt1985/FinCache/assets/58369494/231f7018-a9cf-4736-a7b6-9de6ab105edf)
+![image](https://github.com/mckt1985/FinCache/assets/58369494/a9a248f9-b96f-48fe-a407-4780f1b7d8e2)
 
 If using docker, navigate to the root of the solution directory and run the below command
 
@@ -93,6 +93,48 @@ docker-compose up
 
 Your Swagger API documentation will be accessible by running the following 
 
-```csharp
+```bash
 http://localhost:5000/swagger/index.html
 ```
+
+Or you can use Postman to test the weather API
+
+```bash
+https://localhost:5000/api/weather/forecast?city={city}
+```
+The list of available Cities to test are 
+
+* New York
+* Tokyo
+* London
+* Paris
+* Shanghai
+* Los Angeles
+* Singapore
+* Hong Kong
+* Dubai
+* Beijing
+* Mumbai
+* Sydney
+* Berlin
+* Toronto
+* Chicago
+* Seoul
+* Moscow
+* São Paulo
+* Mexico City
+* Amsterdam
+
+And a sample response looks like
+
+```json
+{
+  "City": "New York",
+  "Weather": "Partly Cloudy",
+  "Latitude": 40.7128,
+  "Longitude": -74.0060
+}
+```
+
+## License
+This project is licensed under the MIT License.
