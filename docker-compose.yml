@@ -1,0 +1,50 @@
+version: '3.4'
+
+services:
+  fincache.workerservice:
+    container_name: fin-worker
+    image: ${DOCKER_REGISTRY-}fincacheworkerservice
+    build:
+      context: .
+      dockerfile: FinCache.WorkerService/Dockerfile
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+    depends_on:
+      - fincache.rabbitmq
+    networks:
+      - fin-newtwork
+  fincache.api:
+    container_name: fin-api
+    image: ${DOCKER_REGISTRY-}fincacheapi
+    build:
+      context: .
+      dockerfile: FinCache.API/Dockerfile
+    ports: 
+       - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+    depends_on:
+      - fincache.rabbitmq
+    networks:
+      - fin-newtwork
+  fincache.rabbitmq:
+    image: rabbitmq:management
+    container_name: fin-rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbitadmn
+      - RABBITMQ_DEFAULT_PASS=r@bb1t@dmn
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_log:/var/log/rabbitmq
+    networks:
+      - fin-newtwork
+volumes: 
+   rabbitmq_data:
+   rabbitmq_log:
+networks:
+  fin-newtwork:
+    driver: bridge
