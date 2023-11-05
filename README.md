@@ -85,11 +85,15 @@ The cache uses the city name as the key so the first time the weather is request
 
 ![image](https://github.com/mckt1985/FinCache/assets/58369494/a9a248f9-b96f-48fe-a407-4780f1b7d8e2)
 
-If using docker, navigate to the root of the solution directory and run the below command
+If using docker, navigate to the root of the solution directory and run the below commands
 
 ```bash
+docker-compose build
 docker-compose up
 ```
+### Note
+You may need to restart the worker service as this has a dependency on Rabbit MQ being up and running and accessible.
+
 
 Your Swagger API documentation will be accessible by running the following 
 
@@ -102,6 +106,13 @@ Or you can use Postman to test the weather API
 ```bash
 http://localhost:5000/api/weather/forecast?city={city}
 ```
+
+The RabbitMQ Managemtent UI will be accessible by running the following
+
+```bash
+http://localhost:15672
+```
+
 The list of available Cities to test are 
 
 * New York
